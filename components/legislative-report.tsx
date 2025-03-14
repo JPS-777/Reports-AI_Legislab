@@ -13,20 +13,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { useEffect } from "react"
 
+
 export function MyComponent() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true); // Esto se ejecuta solo en el cliente
+    setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (isClient) {
+      window.print();
+    }
+  }, [isClient]); // Se ejecuta solo cuando el componente ya está en el cliente
+
   if (!isClient) {
-    return null; // O muestra un cargando, etc.
+    return null; // Evita renderizado en el servidor
   }
-
-  // Ahora puedes usar window sin problemas
-  window.print();
-
+  
   return (
     <div>
       <h1>Componente cargado</h1>
