@@ -11,6 +11,29 @@ import html2canvas from "html2canvas"
 import jsPDF from "jspdf"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { useEffect } from "react"
+
+export function MyComponent() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // Esto se ejecuta solo en el cliente
+  }, []);
+
+  if (!isClient) {
+    return null; // O muestra un cargando, etc.
+  }
+
+  // Ahora puedes usar window sin problemas
+  window.print();
+
+  return (
+    <div>
+      <h1>Componente cargado</h1>
+    </div>
+  );
+}
+
 
 export default function LegislativeReport() {
   const [isPrinting, setIsPrinting] = useState(false)
@@ -39,9 +62,6 @@ export default function LegislativeReport() {
     // Save the PDF
     pdf.save("report.pdf");
   };
-  
-  
-  
   
 
   // Función mejorada para descargar PDF que preserva el estado de la UI
