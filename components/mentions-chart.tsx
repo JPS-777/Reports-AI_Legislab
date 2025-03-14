@@ -2,6 +2,7 @@
 
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
+import ClientOnly from "./client-only"
 
 const data = [
   { month: "Mar", menciones: 10 },
@@ -18,24 +19,26 @@ const data = [
 
 export default function MentionsChart() {
   return (
-    <ChartContainer
-      config={{
-        menciones: {
-          label: "Menciones",
-          color: "hsl(var(--chart-1))",
-        },
-      }}
-      className="h-full"
-    >
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data}>
-          <XAxis dataKey="month" />
-          <YAxis />
-          <Tooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="menciones" fill="var(--color-menciones)" radius={[4, 4, 0, 0]} />
-        </BarChart>
-      </ResponsiveContainer>
-    </ChartContainer>
+    <ClientOnly>
+      <ChartContainer
+        config={{
+          menciones: {
+            label: "Menciones",
+            color: "hsl(var(--chart-1))",
+          },
+        }}
+        className="h-full"
+      >
+        <ResponsiveContainer width="100%" height={300} minHeight={200}>
+          <BarChart data={data}>
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip content={<ChartTooltipContent />} />
+            <Bar dataKey="menciones" fill="var(--color-menciones)" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartContainer>
+    </ClientOnly>
   )
 }
 

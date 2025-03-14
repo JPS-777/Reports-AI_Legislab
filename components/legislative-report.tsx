@@ -14,31 +14,6 @@ import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { useEffect } from "react"
 
 
-export function MyComponent() {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (isClient) {
-      window.print();
-    }
-  }, [isClient]); // Se ejecuta solo cuando el componente ya está en el cliente
-
-  if (!isClient) {
-    return null; // Evita renderizado en el servidor
-  }
-  
-  return (
-    <div>
-      <h1>Componente cargado</h1>
-    </div>
-  );
-}
-
-
 export default function LegislativeReport() {
   const [isPrinting, setIsPrinting] = useState(false)
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
@@ -778,4 +753,3 @@ export default function LegislativeReport() {
     </div>
   )
 }
-

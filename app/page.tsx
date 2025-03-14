@@ -1,5 +1,11 @@
 import type { Metadata } from "next"
-import LegislativeReport from "@/components/legislative-report"
+import dynamic from "next/dynamic"
+
+// Importar el componente principal con carga dinámica para evitar errores de window
+const LegislativeReport = dynamic(
+  () => import("@/components/legislative-report"),
+  { ssr: false }, // Esto evita que el componente se renderice en el servidor
+)
 
 export const metadata: Metadata = {
   title: "Informe de Análisis Legislativo sobre Nuclear",
